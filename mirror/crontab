@@ -2,4 +2,4 @@
 * * * * * /syncrepo.sh
 
 # Status heartbeats
-*/5 * * * * wget --spider "https://heartbeat.uptimerobot.com/m793659952-2854cd6b6216b3386fc09844c193fda60c98e86d" >/dev/null 2>&1
+*/1 * * * * wget --spider "$UP_HEARTBEAT_URL" >/dev/null 2>&1
