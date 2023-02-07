@@ -2,4 +2,4 @@
 * * * * * /syncrepo.sh
 
 # Status heartbeats
-*/1 * * * * wget --spider "$UP_HEARTBEAT_URL" >/dev/null 2>&1
+*/1 * * * * wget --spider "$UR_HEARTBEAT_URL" >/dev/null 2>&1

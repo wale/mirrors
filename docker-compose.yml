@@ -22,7 +22,7 @@ services:
     restart: unless-stopped
     command: supercronic crontab
     environment:
-      - UP_HEARTBEAT_URL=${UP_HEARTBEAT_URL}
+      - UR_HEARTBEAT_URL=${UR_HEARTBEAT_URL}
     volumes:
       - ./mirror/prod/:/mnt/mirror
 
