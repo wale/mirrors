@@ -4,7 +4,7 @@ set -e
 
 target="/mnt/mirror/termux"
 
-tmp="/tmp/termux-tmp"
+tmp=""
 
 lock="/tmp/.termux-sync-lock"
 
