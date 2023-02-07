@@ -23,29 +23,6 @@ services:
     volumes:
       - ./mirror/prod/:/mnt/mirror
 
-  netdata:
-    image: netdata/netdata
-    container_name: netdata
-    hostname: mirrors.wale.id.au
-    ports:
-      - 19999:19999
-    restart: unless-stopped
-    cap_add:
-      - SYS_PTRACE
-    security_opt:
-      - apparmor:unconfined
-    networks:
-      - web
-    volumes:
-      - netdataconfig:/etc/netdata
-      - netdatalib:/var/lib/netdata
-      - netdatacache:/var/cache/netdata
-      - /etc/passwd:/host/etc/passwd:ro
-      - /etc/group:/host/etc/group:ro
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
-      - /etc/os-release:/host/etc/os-release:ro
-
 volumes:
   caddy_config:
   netdataconfig:
