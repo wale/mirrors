@@ -5,6 +5,7 @@ RUN set -x \
 	apk add --no-cache rsync curl supercronic shadow && \
 	useradd -m app
 
-ADD syncrepo.sh /
+ADD syncrepo_arch.sh /
+ADD syncrepo_termux.sh /
 
 COPY crontab .
