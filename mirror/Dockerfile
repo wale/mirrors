@@ -1,10 +1,10 @@
-FROM ubuntu:latest
+FROM alpine:latest
 
-RUN DEBIAN_FRONTEND=noninteractive \
-	apt update && \
-	apt -y install rsync curl && \
-	rm -rf /var/lib/apt/lists/*
+RUN set -x \
+	apk update && \
+	apk add --no-cache rsync curl supercronic shadow && \
+	useradd -m app
 
 ADD syncrepo.sh /
 
-CMD ["/syncrepo.sh"]
+COPY crontab .
