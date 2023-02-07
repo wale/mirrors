@@ -5,28 +5,36 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-@import url("https://rsms.me/inter/inter.css");
-
 * { padding: 0; margin: 0; }
 
+@import url("https://rsms.me/inter/inter.css");
+
 body {
-	font-family: "Inter", sans-serif;
+	font-family: 'Inter', sans-serif;
 	text-rendering: optimizespeed;
-	background-color: #e4e9eb;
+	background-color: #191724;
+}
+
+@supports (font-variation-settings: normal) {
+	body {
+		font-family: 'Inter var', sans-serif;
+		text-rendering: optimizespeed;
+		background-color: #191724;
+	}
 }
 
 a {
-	color: #00809d;
+	color: #31748f;
 	text-decoration: none;
 }
 
 a:hover,
 h1 a:hover {
-	color: #618ec5;
+	color: #9ccfd8;
 }
 
 a:visited {
-	color: #bcaaf1;
+	color: #6e6a86;
 }
 
 header,
@@ -48,7 +56,7 @@ td:last-child {
 header {
 	padding-top: 25px;
 	padding-bottom: 15px;
-	background-color: #cdd1d4;
+	background-color: #1f1d2e; 
 }
 
 h1 {
@@ -57,11 +65,11 @@ h1 {
 	white-space: nowrap;
 	overflow-x: hidden;
 	text-overflow: ellipsis;
-	color: #999;
+	color: #e0def4;
 }
 
 h1 a {
-	color: #191c1e;
+	color: #e0def4;
 	margin: 0 4px;
 }
 
@@ -79,8 +87,8 @@ main {
 
 .meta {
 	font-size: 12px;
-	font-family: "Inter", sans-serif;
-	border-bottom: 1px solid #cdd1d4;
+	font-family: Verdana, sans-serif;
+	border-bottom: 1px solid #1f1d2e;
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
@@ -91,8 +99,7 @@ main {
 
 #filter {
 	padding: 4px;
-	border: 2px solid #CCC;
-    border-radius: 5px;
+	border: 1px solid #26233a;
 }
 
 table {
@@ -101,11 +108,11 @@ table {
 }
 
 tr {
-	border-bottom: 1px dashed #dadada;
+	border-bottom: 1px dashed #6e6a86;
 }
 
 tbody tr:hover {
-	background-color: #ffffec;
+	background-color: #6e6a86;
 }
 
 th,
@@ -122,7 +129,7 @@ th {
 }
 
 th a {
-	color: #191c1e;
+	color: #908caa;
 }
 
 th svg {
@@ -206,7 +213,7 @@ footer {
 	}
 
 	h1 {
-		color: #191c1e;
+		color: #e0def4;
 	}
 
 	h1 a {
@@ -218,54 +225,6 @@ footer {
 	}
 }
 
-@media (prefers-color-scheme: dark) {
-	body {
-		background-color: #101416;
-		color: #dfe3e6;
-	}
-
-	header {
-		background-color: #343739;
-	}
-
-	tbody tr:hover {
-		background-color: #222527;
-	}
-
-	header a,
-	th a {
-		color: #dfe3e6;
-	}
-
-	a {
-		color: #00acce;
-		text-decoration: none;
-	}
-
-	a:hover,
-	h1 a:hover {
-		color: #7bf2ff;
-	}
-
-	tr {
-		border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
-	}
-
-	#up-arrow,
-	#down-arrow {
-		fill: #dfe3e6;
-	}
-
-	#filter {
-		background-color: #151515;
-		color: #ffffff;
-		border: 1px solid #212121;
-	}
-
-	.meta {
-		border-bottom: 1px solid #3b3f41;
-	}
-}
 </style>
 	</head>
 	<body onload='initFilter()'>
@@ -326,7 +285,7 @@ footer {
 					{{- if ne 0 .Limit}}
 					<span class="meta-item">(of which only <b>{{.Limit}}</b> are displayed)</span>
 					{{- end}}
-					<span class="meta-item"><input type="text" placeholder="Filter..." id="filter" onkeyup='filter()'></span>
+					<span class="meta-item"><input type="text" placeholder="filter" id="filter" onkeyup='filter()'></span>
 				</div>
 			</div>
 			<div class="listing">
@@ -413,7 +372,7 @@ footer {
 			</div>
 		</main>
 		<footer>
-			Run by <a href="https://wale.id.au">Duale Siad</a>, served by <a href="https://caddyserver.com">Caddy</a>
+			Maintained by <a rel="noopener" href="https://wale.au">Duale Siad</a> | Served with <a rel="noopener noreferrer" href="https://caddyserver.com">Caddy</a>
 		</footer>
 		<script>
 			var filterEl = document.getElementById('filter');
