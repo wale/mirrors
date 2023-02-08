@@ -2,7 +2,7 @@ FROM alpine:latest
 
 RUN set -x \
 	apk update && \
-	apk add --no-cache rsync curl supercronic shadow && \
+	apk add --no-cache bash rsync curl supercronic shadow && \
 	useradd -m app
 
 ADD syncrepo_arch.sh /
