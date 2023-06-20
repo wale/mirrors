@@ -1,0 +1,31 @@
+#!/bin/bash
+
+DESTPATH="/srv/mirror/{{ item.name }}"
+RSYNC=/usr/bin/rsync
+LOCKFILE=/tmp/rsync-{{ item.name | regex_replace('\/', '_') }}.lock
+
+synchronize() {
+    printf "starting sync for {{ item.name }}\n"
+    # Rsync's --chown does not set the owner of the directory itself
+    chown {{ item.owner | default('root') }} "$DESTPATH"
+    $RSYNC -rtlvoH --delete-during --delay-updates --safe-links --chown={{ item.owner | default('root') }} {{ item.source }} "$DESTPATH"
+}
+
+if [ ! -e "$LOCKFILE" ]
+then
+    printf %s "$$" >"$LOCKFILE"
+    synchronize
+else
+    PID=$(cat "$LOCKFILE")
+    if kill -0 "$PID" >&/dev/null
+    then
+        printf "rsync - synchronisation for %s still running\n" "$DESTPATH"
+        exit 0
+    else
+        printf %s "$$" >"$LOCKFILE"
+        printf "warning: previous synchronization for %s appears not to have finished correctly\n" "$DESTPATH"
+        synchronize
+    fi
+fi
+
+rm -f "$LOCKFILE"

@@ -1,0 +1,12 @@
+---
+- name: mirrors.wale.id.au Ansible playbook
+  hosts: all
+  remote_user: wale
+  become: true
+  become_user: root
+  become_method: doas
+  
+  roles:
+    - common
+    - caddy
+    - reposync

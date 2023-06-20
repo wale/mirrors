@@ -1,0 +1,39 @@
+---
+- name: Run package upgrades
+  community.general.apk:
+    available: false
+    repository:
+      - https://mirror.aarnet.edu.au/pub/alpine/edge/main/
+      - https://mirror.aarnet.edu.au/pub/alpine/edge/community/
+    name: rsync, bash, curl, wget, cronie, doas, xfsprogs, run-parts, go
+
+- name: Install xcaddy
+  ansible.builtin.command: go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
+
+- name: Install Caddy with the CloudFlare plugin
+  ansible.builtin.command: /root/go/bin/xcaddy build --with github.com/caddy-dns/cloudflare
+
+- name: Move Caddy to proper location
+  command: mv caddy /usr/sbin
+
+- name: Install Caddy service
+  template:
+    src: caddy.service.j2
+    dest: /etc/init.d/caddy
+    mode: 0755
+
+- name: Disable SSH password authentication
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?PasswordAuthentication'
+    line: PasswordAuthentication no
+  notify: restart-ssh
+
+# This only applies to the specific server I'm running this mirror on.
+# If you fork this configuration, REMOVE THIS.
+- name: Mount disk to /srv/mirror
+  ansible.posix.mount:
+    path: /srv/mirror
+    src: /dev/sdb
+    fstype: xfs
+    state: mounted

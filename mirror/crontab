@@ -1,8 +1,0 @@
-# Arch Linux mirrors, run when there are changes
-* * * * * /syncrepo_arch.sh
-
-# Termux mirrors, run every 2 hours
-0 */2 * * * /syncrepo_termux.sh
-
-# Status heartbeats, run every minute
-*/1 * * * * wget --spider "$UR_HEARTBEAT_URL" >/dev/null 2>&1

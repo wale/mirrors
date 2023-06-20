@@ -1,0 +1,29 @@
+---
+- name: Include mirror configurations
+  include_vars: mirrors.yml
+
+- name: Create runner directory
+  file:
+    path: /run/mirrors
+    state: directory
+    mode: 0755
+
+- name: Create sync directories
+  file:
+    path: "/srv/mirror/{{ item.name }}"
+    state: directory
+    mode: 0755
+  with_items: "{{ mirrors }}"
+
+- name: Install sync scripts
+  template:
+    src: repo_sync.j2
+    dest: "/run/mirrors/{{ item.name | regex_replace('\/', '_') }}"
+    mode: 0755
+  with_items: "{{ mirrors }}"
+
+- name: Add cron jobs
+  ansible.builtin.cron:
+    name: "sync mirrors"
+    minute: "15"
+    job: run-parts /run/mirrors

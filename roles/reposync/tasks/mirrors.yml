@@ -1,0 +1,9 @@
+# yaml-language-server: $schema=./mirrors.yml
+# the above is to tell vscode to stfu
+---
+mirrors:
+  - name: archlinux
+    source: rsync://mirror.aarnet.edu.au/archlinux
+  - name: termux
+    source: rsync://packages.termux.dev/termux
+  
