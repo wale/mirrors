@@ -5,7 +5,7 @@
     repository:
       - https://mirror.aarnet.edu.au/pub/alpine/edge/main/
       - https://mirror.aarnet.edu.au/pub/alpine/edge/community/
-    name: rsync, bash, curl, wget, cronie, doas, xfsprogs, run-parts, go
+    name: rsync, bash, curl, wget, cronie, doas, xfsprogs, run-parts, go, caddy-openrc, libcap
 
 - name: Install xcaddy
   ansible.builtin.command: go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
@@ -16,11 +16,31 @@
 - name: Move Caddy to proper location
   command: mv caddy /usr/sbin
 
-- name: Install Caddy service
-  template:
-    src: caddy.service.j2
-    dest: /etc/init.d/caddy
-    mode: 0755
+#- name: Install Caddy service
+#  template:
+#    src: caddy.service.j2
+#    dest: /etc/init.d/caddy
+#    mode: 0755
+  
+- name: Create caddy user
+  ansible.builtin.user:
+    name: caddy
+    comment: Caddy web server
+    uid: 1040
+
+- name: Add cap_net_bind_service for caddy executable
+  community.general.capabilities:
+    path: /usr/sbin/caddy
+    capability: cap_net_bind_service+ep
+    state: present
+
+
+- name: Create Caddy directory if it does not exist
+  ansible.builtin.file:
+    path: /etc/caddy
+    state: directory
+    mode: '0755'
+    owner: caddy
 
 - name: Disable SSH password authentication
   lineinfile:
