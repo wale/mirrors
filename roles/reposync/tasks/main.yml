@@ -25,5 +25,5 @@
 - name: Add cron jobs
   ansible.builtin.cron:
     name: "sync mirrors"
-    minute: "15"
+    minute: "1" # It checks every minute before downloading any changes.
     job: run-parts /run/mirrors
