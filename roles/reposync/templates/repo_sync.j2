@@ -8,7 +8,7 @@ synchronize() {
     printf "starting sync for {{ item.name }}\n"
     # Rsync's --chown does not set the owner of the directory itself
     chown {{ item.owner | default('root') }} "$DESTPATH"
-    $RSYNC -rtlvoH --delete-during --delay-updates --no-motd --safe-links --chown={{ item.owner | default('root') }} {{ item.source }} "$DESTPATH"
+    $RSYNC -rlptH --safe-links --delete-delay --delay-updates "--timeout=600" "--contimeout=60" --chown={{ item.owner | default('root') }} {{ item.source }} "$DESTPATH"
 }
 
 if [ ! -e "$LOCKFILE" ]
