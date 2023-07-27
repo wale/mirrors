@@ -4,6 +4,7 @@
 mirrors:
   - name: archlinux
     source: rsync://mirror.aarnet.edu.au/archlinux
+    lastupdate: https://mirror.aarnet.edu.au/pub/archlinux/lastupdate
   - name: termux
     source: rsync://packages.termux.dev/termux
   
