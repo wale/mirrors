@@ -25,4 +25,5 @@
 - name: Add cron jobs
   ansible.builtin.cron:
     name: "sync mirrors"
+    minute: "15"
     job: run-parts /run/mirrors
